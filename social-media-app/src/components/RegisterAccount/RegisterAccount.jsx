@@ -2,13 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./RegisterAccount.css";
 
-function RegisterAccount() {
+export function RegisterAccount() {
   return (
     <>
       <div>
         <h1 className="centered2">Super Awesome app</h1>
       </div>
-      <div className="container col-4 centered regacc border">
+      <div className=" container regacc border">
         <div className=" ">
           <div className="d-flex justify-content-center">
             <h5 className="">Register new account</h5>

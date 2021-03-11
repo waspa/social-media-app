@@ -1,4 +1,4 @@
-import React from "react";
+ import React from "react";
 import "./SignIn.css";
 import { Link } from "react-router-dom";
 
@@ -39,8 +39,8 @@ function SignIn() {
         </form>
       </main>
       <nav>
-        <Link to="/registeraccount">Create a new account here </Link>
-        {/* <Link to="/forgotpassword">Forgot your password?</Link> */}
+        {/* <Link to="/registeraccount">Create a new account here </Link> */}
+       <Link to="/forgotpassword">Forgot your password?</Link> 
         <div>
           <em>Forgot your password?</em>
         </div>
@@ -50,3 +50,5 @@ function SignIn() {
 }
 
 export default SignIn;
+ 
+

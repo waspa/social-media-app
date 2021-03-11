@@ -1,5 +1,6 @@
 import React from "react";
-import SignIn from "./components/SignIn/SignIn";
+//import SignIn from "./components/SignIn/SignIn";
+import BSSignin from './BS Signin/BSSignin'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import RegisterAccount from "./components/RegisterAccount/RegisterAccount";
 
@@ -9,7 +10,7 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/">
-            <SignIn />
+            <BSSignin />
           </Route>
           <Route path="/registeraccount">
             <RegisterAccount />
