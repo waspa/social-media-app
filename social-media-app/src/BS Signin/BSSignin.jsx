@@ -7,7 +7,7 @@ export default function Sigin() {
     
     return (
         <>
-          <Card className="">
+          <Card className="container">
               <Card.Body>
                   <h2 className="text-center mb-4">Log in</h2>
                   <Form>

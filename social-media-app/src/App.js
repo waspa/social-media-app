@@ -3,6 +3,7 @@ import React from "react";
 import BSSignin from './BS Signin/BSSignin'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import RegisterAccount from "./components/RegisterAccount/RegisterAccount";
+import BSSignup from './BSSIgnup/BSSignup'
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
             <BSSignin />
           </Route>
           <Route path="/registeraccount">
-            <RegisterAccount />
+            <BSSignup />
           </Route>
         </Switch>
       </Router>
