@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Card, Button, Alert } from "react-bootstrap";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 
 function Dashboard() {
@@ -33,7 +33,7 @@ function Dashboard() {
         </Card.Body>
       </Card>
       <div className="w-100 text-center mt-2">
-        <Button variant="link" onClick={handleLogout}>
+        <Button variant="link" className="btn-info" onClick={handleLogout}>
           Log Out
         </Button>
       </div>
