@@ -1,13 +1,13 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Card, Button, Form, Alert } from "react-bootstrap";
-import FirebaseContext from "../context/Firebase";
+import {useAuth} from "../context/AuthContext";
 import * as ROUTES from "../constants/routes";
 import Logo from "../components/Logo";
 
 export default function ResetPassword() {
-  const { firebase } = useContext(FirebaseContext);
-
+  //const { firebase } = useContext(FirebaseContext);
+  const {resetPassword} = useAuth()
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -21,7 +21,7 @@ export default function ResetPassword() {
       setMessage("");
       setError("");
       setLoading(true);
-      await firebase.auth().sendPasswordResetEmail(email);
+      await resetPassword(email);
       setMessage("Check your inbox for further instructions");
     } catch (error) {
       setError("Failed to Log in. Check password and email ");

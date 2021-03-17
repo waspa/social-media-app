@@ -1,42 +1,57 @@
-import React from 'react'
+import React from "react";
 import { Container } from "react-bootstrap";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "./pages/Login";
-import Signup from './pages/Sign-up'
-import NotFound from './pages/NotFound';
-import ResetPassword from './pages/ResetPassword'
-import Dashboard from './pages/Dashboard';
-import * as ROUTES from './constants/routes'
+import Signup from "./pages/Sign-up";
+import NotFound from "./pages/NotFound";
+import ResetPassword from "./pages/ResetPassword";
+import Dashboard from "./pages/Dashboard";
+import UpdateProfile from "./pages/UpdateProfile";
+import PrivateRoute from "./constants/PrivateRoute";
+import * as ROUTES from "./constants/routes";
+import { AuthProvider } from "./context/AuthContext";
 
-
-if(module.hot){
-  module.hot.accept()
+if (module.hot) {
+  module.hot.accept();
 }
 
 function App() {
   return (
     <>
-       <Container
-        className="d-flex align-items-center justify-content-center"
-        style={{ minHeight: "100vh" }}>
-        <div className="w-100" style={{ maxWidth: "400px" }}>
-          <Router>
-           {/*  <FirebaseContext.Provider> */}
-              <Switch>
-              <Route path={ROUTES.LOGIN} component={Login} />
-              <Route path={ROUTES.SIGN_UP} component={Signup} />
-              <Route path={ROUTES.NOT_FOUND} component={NotFound} />
-              <Route path={ROUTES.RESET_PASSWORD} component={ResetPassword} />
-              <Route path={ROUTES.DASHBOARD} component={Dashboard} />
-                {/* 
-                <Route  path="/update-profile" component={UpdateProfile} />
-               
-                 */}
-              </Switch>
-     {/*        </FirebaseContext.Provider> */}
-          </Router>
-        </div>
-      </Container>
+      <AuthProvider>
+        <Container
+          className="d-flex align-items-center justify-content-center"
+          style={{ minHeight: "100vh" }}
+        >
+          <div className="w-100" style={{ maxWidth: "400px" }}>
+            <Router>
+              {/*  <FirebaseContext.Provider> */}
+              <AuthProvider>
+                <Switch>
+                  <PrivateRoute
+                    exact
+                    path={ROUTES.DASHBOARD}
+                    component={Dashboard}
+                  />
+                  <Route path={ROUTES.LOGIN} component={Login} />
+                  <Route path={ROUTES.SIGN_UP} component={Signup} />
+                  <Route path={ROUTES.NOT_FOUND} component={NotFound} />
+                  <Route
+                    path={ROUTES.RESET_PASSWORD}
+                    component={ResetPassword}
+                  />
+                  <Route
+                    path={ROUTES.UPDATE_PROFILE}
+                    component={UpdateProfile}
+                  />
+                </Switch>
+              </AuthProvider>
+
+              {/*        </FirebaseContext.Provider> */}
+            </Router>
+          </div>
+        </Container>
+      </AuthProvider>
     </>
   );
 }

@@ -1,27 +1,28 @@
 
 import React, {useEffect, useState} from 'react'
 import { Card, Button, Alert } from "react-bootstrap";
-import {useHistory } from "react-router-dom";
+import {useHistory, Link } from "react-router-dom";
 import * as ROUTES from '../constants/routes'
-import firebase from 'firebase'
+import {useAuth} from '../context/AuthContext'
 
 
 
 export default function Dashboard() {
     const history = useHistory()
     const [error, setError] = useState((''))
+    const {currentUser, logout} = useAuth()
 
-    function handleSignout() {
-        // [START auth_sign_out]
-        firebase.auth().signOut().then(() => {
-          // Sign-out successful.
-          history.push(ROUTES.LOGIN)
-        }).catch((error) => {
-          // An error happened.
-          setError(error)
-        });
-        // [END auth_sign_out]
-      }
+    async function handleSignout () {
+        setError('')
+    
+        try{
+          await logout()
+          history.push('/login')
+    
+        }catch{
+          setError('Failed to log out')
+        }
+      };
 
     useEffect(() => {
         document.title = 'Dashboard'
@@ -31,14 +32,21 @@ export default function Dashboard() {
     return (
         <>
         <Card>
-            <Card.Body>
-                <h1>Welcome User to the Dashboard</h1> 
-                {error && <Alert variant="danger">{error}</Alert>}
-            </Card.Body>
-            <Button className="btn-info w-100" onClick={handleSignout}>
-                Log Out
-            </Button>
-        </Card>
+        <Card.Body>
+          <h2 className="text-center  mb-4">Profile</h2>
+          {error && <Alert variant="danger">{error}</Alert>}
+          <strong>Name:</strong> {currentUser.name}
+          <Link
+            to={ROUTES.UPDATE_PROFILE}
+            className="btn btn-primary w-100 mt-3"
+          >Update Profile</Link>
+        </Card.Body>
+      </Card>
+      <div className="w-100 text-center mt-2">
+        <Button  className="btn-info" onClick={handleSignout}>
+          Log Out
+        </Button>
+      </div>
 
             
         </>
