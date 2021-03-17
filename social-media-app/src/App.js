@@ -1,40 +1,43 @@
-import Signup from "./components/Signup/Signup";
-import React from "react";
+import React from 'react'
 import { Container } from "react-bootstrap";
-import { AuthProvider } from "./context/AuthContext";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Dashboard from "./components/Profile/Profile";
-import Login from "./components/Login/Login";
-import PrivateRoute from './components/PrivateRoute/PrivateRoute'
-import ForgotPassword from './components/ForgotPassword/ForgotPassword'
-import UpdateProfile from "./components/UpdateProfile/UpdateProfile";
+import Login from "./pages/Login";
+import Signup from './pages/Sign-up'
+import NotFound from './pages/NotFound';
+import ResetPassword from './pages/ResetPassword'
+import Dashboard from './pages/Dashboard';
+import * as ROUTES from './constants/routes'
 
-if (module.hot) {
-  module.hot.accept();
+
+if(module.hot){
+  module.hot.accept()
 }
 
 function App() {
   return (
-    <AuthProvider>
-      <Container
+    <>
+       <Container
         className="d-flex align-items-center justify-content-center"
-        style={{ minHeight: "100vh" }}
-      >
+        style={{ minHeight: "100vh" }}>
         <div className="w-100" style={{ maxWidth: "400px" }}>
           <Router>
-            <AuthProvider>
+           {/*  <FirebaseContext.Provider> */}
               <Switch>
-                <PrivateRoute exact path="/" component={Dashboard} />
+              <Route path={ROUTES.LOGIN} component={Login} />
+              <Route path={ROUTES.SIGN_UP} component={Signup} />
+              <Route path={ROUTES.NOT_FOUND} component={NotFound} />
+              <Route path={ROUTES.RESET_PASSWORD} component={ResetPassword} />
+              <Route path={ROUTES.DASHBOARD} component={Dashboard} />
+                {/* 
                 <Route  path="/update-profile" component={UpdateProfile} />
-                <Route path="/signup" component={Signup} />
-                <Route path="/login" component={Login} />
-                <Route path="/forgot-password" component={ForgotPassword} />
+               
+                 */}
               </Switch>
-            </AuthProvider>
+     {/*        </FirebaseContext.Provider> */}
           </Router>
         </div>
       </Container>
-    </AuthProvider>
+    </>
   );
 }
 
