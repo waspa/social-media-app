@@ -43,6 +43,10 @@ export default function Signup() {
 
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
+          <Form.Group id="name">
+              <Form.Label>Name</Form.Label>
+              <Form.Control type="name" required />
+            </Form.Group>
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>
               <Form.Control type="email" ref={emailRef} required />

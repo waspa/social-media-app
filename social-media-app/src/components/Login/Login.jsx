@@ -6,6 +6,7 @@ import Logo from "../Logo/Logo";
 import Name from "../Name/Name";
 
 export default function Login() {
+ 
   const emailRef = useRef();
   const passwordRef = useRef();
   const { login } = useAuth();
@@ -39,6 +40,7 @@ export default function Login() {
           
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
+         
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>
               <Form.Control type="email" ref={emailRef} required />
