@@ -19,6 +19,10 @@ export default function Update() {
 
   const isInvalid = password === "" || email === "" || passwordConfirm === "";
 
+
+  console.log(currentUser.email)
+
+
   //function handleSubmit(e) {
     const handleSubmit = (e) => {
     e.preventDefault();
@@ -62,7 +66,7 @@ export default function Update() {
               <Form.Control
                 type="email"
                 placeholder="Email Adress"
-                value={email}
+                //value={email}
                 onChange={({target}) => setEmail(target.value)}
                 
                 required
@@ -85,7 +89,7 @@ export default function Update() {
               <Form.Control
                 type="password"
                 placeholder="Confirm Password"
-                value={password}
+                value={passwordConfirm}
                 onChange={({target}) => setPasswordConfirm(target.value)}
                
                

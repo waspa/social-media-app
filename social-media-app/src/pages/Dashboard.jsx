@@ -12,6 +12,8 @@ export default function Dashboard() {
     const [error, setError] = useState((''))
     const {currentUser, logout} = useAuth()
 
+    console.log(currentUser)
+
     async function handleSignout () {
         setError('')
     
@@ -25,7 +27,7 @@ export default function Dashboard() {
       };
 
     useEffect(() => {
-        document.title = 'Dashboard'
+        document.title = 'Dashboard - Social App'
       
     }, [])
 
@@ -35,7 +37,8 @@ export default function Dashboard() {
         <Card.Body>
           <h2 className="text-center  mb-4">Profile</h2>
           {error && <Alert variant="danger">{error}</Alert>}
-          <strong>Name:</strong> {currentUser.name}
+          <span className="d-block"><strong>Name:</strong> {currentUser.displayName}</span>
+          <span className="d-block"><strong>Email:</strong> {currentUser.email}</span>
           <Link
             to={ROUTES.UPDATE_PROFILE}
             className="btn btn-primary w-100 mt-3"

@@ -24,7 +24,7 @@ export default function ResetPassword() {
       await resetPassword(email);
       setMessage("Check your inbox for further instructions");
     } catch (error) {
-      setError("Failed to Log in. Check password and email ");
+      setError(error.message);
     }
     setLoading(false);
   };

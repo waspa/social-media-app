@@ -25,7 +25,7 @@ function App() {
         >
           <div className="w-100" style={{ maxWidth: "400px" }}>
             <Router>
-              {/*  <FirebaseContext.Provider> */}
+            
               <AuthProvider>
                 <Switch>
                   <PrivateRoute

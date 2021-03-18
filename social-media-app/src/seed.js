@@ -78,7 +78,7 @@ export function seedDatabase(firebase) {
         .add({
           videoId: i,
           userId: '2',
-          videoSrc: `/videos/users/raphael/${i}.mp4`,
+          videoSrc: `/videos/users/husky/${i}.mp4`,
           caption: 'Carbonated Water',
           likes: [],
           comments: [
