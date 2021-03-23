@@ -1,3 +1,18 @@
+# Dependencies
+
+bootstrap react-bootstrap
+
+firebase
+
+react-router-dom
+
+date-fns
+
+loading-skeleton
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
