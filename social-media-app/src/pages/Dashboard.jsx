@@ -27,7 +27,7 @@ export default function Dashboard() {
       };
 
     useEffect(() => {
-        document.title = 'Dashboard - Social App'
+        document.title = 'Home - Social App'
       
     }, [])
 

@@ -10,6 +10,7 @@ import UpdateProfile from "./pages/UpdateProfile";
 import PrivateRoute from "./constants/PrivateRoute";
 import * as ROUTES from "./constants/routes";
 import { AuthProvider } from "./context/AuthContext";
+import './styles/app.css'
 
 if (module.hot) {
   module.hot.accept();
@@ -20,10 +21,9 @@ function App() {
     <>
       <AuthProvider>
         <Container
-          className="d-flex align-items-center justify-content-center"
-          style={{ minHeight: "100vh" }}
+         
         >
-          <div className="w-100" style={{ maxWidth: "400px" }}>
+          
             <Router>
             
               <AuthProvider>
@@ -33,6 +33,7 @@ function App() {
                     path={ROUTES.DASHBOARD}
                     component={Dashboard}
                   />
+                  <div className="align-items-center justify-content-center center">
                   <Route path={ROUTES.LOGIN} component={Login} />
                   <Route path={ROUTES.SIGN_UP} component={Signup} />
                   <Route path={ROUTES.NOT_FOUND} component={NotFound} />
@@ -44,12 +45,13 @@ function App() {
                     path={ROUTES.UPDATE_PROFILE}
                     component={UpdateProfile}
                   />
+                  </div>
                 </Switch>
               </AuthProvider>
 
               {/*        </FirebaseContext.Provider> */}
             </Router>
-          </div>
+         
         </Container>
       </AuthProvider>
     </>
@@ -57,3 +59,7 @@ function App() {
 }
 
 export default App;
+/* className="d-flex align-items-center justify-content-center"
+style={{ minHeight: "100vh" }}
+<div className="w-100" style={{ maxWidth: "400px" }}></div> */
+ 
