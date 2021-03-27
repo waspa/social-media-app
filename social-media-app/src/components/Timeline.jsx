@@ -1,9 +1,13 @@
 import React from 'react'
+import {Container } from 'react-bootstrap'
 
 export default function Timeline() {
     return (
-        <div>
-            I am a timeline
-        </div>
+        <>
+        <Container>
+        I am a timeline
+        </Container>
+            
+        </>
     )
 }

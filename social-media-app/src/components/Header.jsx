@@ -4,8 +4,7 @@ import { Col, Nav, Navbar, Alert, Image, Container } from "react-bootstrap";
 import * as ROUTES from "../constants/routes";
 import Logo from "./Logo";
 import "../styles/global.css";
-import HomeButton from "./HomeButton";
-import SignOutButton from "./SignOutButton";
+import {HomeButton, SignOutButton} from './Buttons'
 
 //Instagram Clone  
 //import  { useContext } from "react";
@@ -34,7 +33,7 @@ export default function Header() {
   const [error, setError] = useState("");
   const { currentUser, logout } = useAuth();
 
-  console.log(currentUser);
+  //console.log(currentUser);
 
   async function handleSignout() {
     setError("");
@@ -51,9 +50,9 @@ export default function Header() {
 
   return (
     <div className="bottomBorder">
-    <Container >
+    <Container>
       <Navbar collapseOnSelect expand="md" bg="" variant="light">
-        <Navbar.Brand className="start">
+        <Navbar.Brand>
           <Logo />
         </Navbar.Brand>
         <Navbar.Toggle

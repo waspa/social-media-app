@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function Sidebar() {
+export default function Suggestions() {
     return (
         <div>
-            I am a sidebar!
+            I am suggestions
         </div>
     )
 }
