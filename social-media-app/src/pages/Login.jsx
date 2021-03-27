@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Card, Alert, Form, Button } from "react-bootstrap";
 import {useAuth} from "../context/AuthContext";
-import "./Login.css";
+import '../styles/global.css'
 import Logo from "../components/Logo";
 import * as ROUTES from "../constants/routes";
 
@@ -41,8 +41,8 @@ export default function Login() {
   return (
     <>
       <Logo />
-      <Card>
-        <Card.Body>
+      <Card className="mt-5">
+        <Card.Body >
           <h2 className="text-center  mb-4">Log In</h2>
           {error && <Alert variant="danger">{error}</Alert>}
 

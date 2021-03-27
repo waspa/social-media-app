@@ -17,4 +17,4 @@ for manipulating JavaScript dates in a browser & Node.js.
 react-loading-skeleton // Display a placeholder preview of your content before the data gets loaded to reduce load-time frustration.. Make beautiful, animated loading skeletons that automatically adapt to your app.
 npm install react-loading-skeleton 
 
-main
+

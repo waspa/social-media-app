@@ -10,24 +10,18 @@ import UpdateProfile from "./pages/UpdateProfile";
 import PrivateRoute from "./constants/PrivateRoute";
 import * as ROUTES from "./constants/routes";
 import { AuthProvider } from "./context/AuthContext";
-import "./styles/global.css";
+import "./styles/app.css";
 import Dashboard2 from "./pages/Dasboard2";
-import useAuthListener from "./hooks/use-auth-listener";
-import UserContext from './context/User';
 
 if (module.hot) {
   module.hot.accept();
 }
 
 function App() {
-
-  const {user} = useAuthListener();
-
   return (
     <>
-    <UserContext.Provider value={{user}}>
       <AuthProvider>
-        
+        <Container>
           <Router>
             <AuthProvider>
               <Switch>
@@ -36,7 +30,7 @@ function App() {
                   path={ROUTES.DASHBOARD}
                   component={Dashboard2}
                 />
-                <div className="align-items-center justify-content-center center centerapp">
+                <div className="align-items-center justify-content-center center">
                   <Route path={ROUTES.LOGIN} component={Login} />
                   <Route path={ROUTES.SIGN_UP} component={Signup} />
                   <Route path={ROUTES.NOT_FOUND} component={NotFound} />
@@ -54,9 +48,8 @@ function App() {
 
             {/*        </FirebaseContext.Provider> */}
           </Router>
-       
+        </Container>
       </AuthProvider>
-      </UserContext.Provider>
     </>
   );
 }
