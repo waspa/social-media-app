@@ -7,7 +7,7 @@ import "../styles/global.css";
 import HomeButton from "./HomeButton";
 import SignOutButton from "./SignOutButton";
 
-//Instagram Clone
+//Instagram Clone  
 //import  { useContext } from "react";
 //import FirebaseContext from "../context/Firebase"; //gives info on user logging out
 //import UserContext from "../context/User";
