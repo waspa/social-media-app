@@ -15,8 +15,8 @@ const app = firebase.initializeApp({
 
 export const auth = app.auth();
 export default app;
-
-/* const config = {
+/*
+ const config = {
   apiKey: "AIzaSyDSrMDZ0RRwKzCHDFirE4ZIvzaQte3QXS8",
   authDomain: "auth-development-9a7de.firebaseapp.com",
   projectId: "auth-development-9a7de",

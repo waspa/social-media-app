@@ -4,7 +4,7 @@ import { Button } from "react-bootstrap";
 export function SignOutButton() {
   return (
     <>
-      <Button size="sm" variant="outline-primary">
+      <Button size="sm" variant="outline-danger">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
