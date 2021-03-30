@@ -52,16 +52,16 @@ export function seedDatabase(firebase) {
         .add({
           photoId: i,
           userId: '2',
-          imageSrc: `/images/users/raphael/${i}.jpg`,
+          imageSrc: `/images/users/mikey/${i}.jpg`,
           caption: 'Saint George and the Dragon',
           likes: [],
           comments: [
             {
-              displayName: 'dali',
+              displayName: 'jane',
               comment: 'Love this place, looks like my animal farm!'
             },
             {
-              displayName: 'orwell',
+              displayName: 'huskey',
               comment: 'Would you mind if I used this picture?'
             }
           ],
@@ -77,17 +77,17 @@ export function seedDatabase(firebase) {
         .collection('videos')
         .add({
           videoId: i,
-          userId: '2',
-          videoSrc: `/videos/users/husky/${i}.mp4`,
+          userId: '4',
+          videoSrc: `/videos/users/huskey/${i}.mp4`,
           caption: 'Carbonated Water',
           likes: [],
           comments: [
             {
-              displayName: 'john',
+              displayName: 'mikey',
               comment: 'Looks really tasty!'
             },
             {
-              displayName: 'Jane',
+              displayName: 'jane',
               comment: 'Would you mind if I drink this?'
             }
           ],

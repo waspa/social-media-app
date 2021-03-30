@@ -2,7 +2,7 @@ import React from "react";
 import useUser from "../../hooks/use-user";
 import User from "./User";
 import Suggestions from "./Suggestions";
-import { Container } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 
 export default function Sidebar() {
   const {
@@ -15,12 +15,14 @@ export default function Sidebar() {
   return (
     <>
       <Container>
+      <Row>
         <User
           username={username}
           fullName={fullName}
         
         />
         <Suggestions userId={userId} following={following} loggedInUserDocId={docId}/>
+        </Row>
       </Container>
     </>
   );

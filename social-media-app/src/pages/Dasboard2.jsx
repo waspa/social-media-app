@@ -13,11 +13,11 @@ export default function Dasboard2() {
     <>
       <Header />
       <Container>
-        <Row>
-          <Col xs={12} md={8}>
+        <Row className="mt-4">
+          <Col xs={6} md={9}>
             <Timeline />
           </Col>
-          <Col xs={6} md={4}>
+          <Col xs={6} md={3}>
             <Sidebar />
           </Col>
         </Row>

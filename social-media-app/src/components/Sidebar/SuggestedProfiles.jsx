@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { Button, Col, Container, Image, Row } from "react-bootstrap";
+import { Button, Col, Image, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { updateLoggedInUserFollowing, updateFollowedUserFollowers } from '../../services/firebase';
 
@@ -12,6 +12,8 @@ export default function SuggestedProfiles({
   loggedInUserDocId
 }) {
   const [followed, setFollowed] = useState(false);
+
+
 
   async function handleFollowUser() {
     setFollowed(true);
@@ -25,7 +27,7 @@ export default function SuggestedProfiles({
 
 
   return !followed ? (
-    <Container>
+   
       <Row className="mb-3 ">
         <Col>
           <Link to={`/p/${username}`}>
@@ -38,7 +40,7 @@ export default function SuggestedProfiles({
               height="37px"
             ></Image>
           </Link>
-          <Col className="font-weight-bold row">{username}</Col>
+          <Row className="font-weight-bold col">{username}</Row>
         </Col>
 
         <Col className="p-0">
@@ -48,12 +50,12 @@ export default function SuggestedProfiles({
           </Button>
         </Col>
       </Row>
-    </Container>
+    
   ) : null;
 }
 
 SuggestedProfiles.propTypes = {
-  spDocId: PropTypes.string.isRequired,
+  profileDocId: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
   profileId: PropTypes.string.isRequired,
   userId: PropTypes.string.isRequired,
