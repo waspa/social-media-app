@@ -1,40 +1,47 @@
-import { useRef } from 'react';
+//import { useRef } from 'react';
 import PropTypes from 'prop-types';
 import Header from './Header';
 import Image from './Image';
-import Actions from './Actions';
-import Footer from './footer';
-import Comments from './comments';
-import {Container} from 'react-bootstrap'
+//import Actions from './Actions';
+/* import Footer from './footer';
+import Comments from './comments'; */
+import {Row,} from 'react-bootstrap'
+
+
 
 export default function Post({ content }) {
-  const commentInput = useRef(null);
-  const handleFocus = () => commentInput.current.focus();
+  //const commentInput = useRef(null);
+  //const handleFocus = () => commentInput.current.focus();
 
   // components
   // -> header, image, actions (like & comment icons), footer, comments
+  //style={{width: 'auto', height: '100rem'}}
   return (
-    <Container className="col-4">
-    <div className="rounded  border bg-white border-secondary mb-12">
-      <Header username={content.username} />
-      <Image src={content.imageSrc} caption={content.caption} />
-      <Actions
-        docId={content.docId}
-        totalLikes={content.likes.length}
-        likedPhoto={content.userLikedPhoto}
-        handleFocus={handleFocus}
-      />
-      <Footer caption={content.caption} username={content.username} />
-      <Comments
-        docId={content.docId}
-        comments={content.comments}
-        posted={content.dateCreated}
-        commentInput={commentInput}
-      />
-    </div>
-    </Container>
+    <>
+    <Row className="mb-5">
+    
+    
+   <div className="col" >
+   <Header  username={content.username} />
+   </div>
+   <div>
+   <Image src={content.imageSrc} caption={content.caption} />
+   </div>
+     
+     
+     
+
+        
+        
+        
+       
+   
+    </Row>
+    </>
   );
 }
+
+
 
 Post.propTypes = {
   content: PropTypes.shape({ //shape because it is an object
@@ -48,3 +55,4 @@ Post.propTypes = {
     dateCreated: PropTypes.number.isRequired
   })
 };
+

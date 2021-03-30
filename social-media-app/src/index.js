@@ -1,9 +1,13 @@
 import React from "react";
+
+import 'bootstrap/dist/css/bootstrap.min.css'
+
 import ReactDOM from "react-dom";
 import App from "./App";
+
 import FirebaseContext from './context/Firebase';
 import {firebase, FieldValue} from './lib/Firebase';
-import 'bootstrap/dist/css/bootstrap.min.css'
+
 
 
 ReactDOM.render(

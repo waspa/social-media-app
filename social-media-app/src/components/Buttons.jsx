@@ -36,6 +36,7 @@ export function HomeButton() {
           width="16"
           height="16"
           fill="currentColor"
+          
           className="bi bi-house"
           viewBox="0 2 16 16"
         >
@@ -51,4 +52,29 @@ export function HomeButton() {
       </Button>
     </>
   );
+}
+
+export function LikeButton() {
+  return (
+    <Button siz="sm" variant="outline-danger" >
+       <svg
+            
+            xmlns="http://www.w3.org/2000/svg"
+            width="30"
+          height="30"
+            fill="none"
+            viewBox="2 3 20 20"
+            stroke="currentColor"
+            tabIndex={0}
+            
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+            />
+          </svg>
+    </Button>
+  )
 }
