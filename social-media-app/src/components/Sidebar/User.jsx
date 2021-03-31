@@ -7,7 +7,7 @@ const User = ({ username, fullName }) =>
   !username || !fullName ? (
     <Skeleton count={1} height={61} />
   ) : (
-    <Col className="d-grid col-11">
+    <Col className="d-grid col-12 ">
       <Link to={`/p/${username}`}>
         <Image
           alt={`${username} profile`}
