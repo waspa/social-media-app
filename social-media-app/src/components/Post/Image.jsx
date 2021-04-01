@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 export default function Image({ src, caption }) {
   return (
     <>
-      <img className="img-fluid img-thumbnail" src={src} alt={caption} />
+      <img className="img-fluid" src={src} alt={caption} />
     </>
   );
 }
