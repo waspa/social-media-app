@@ -38,7 +38,7 @@ export default function ResetPassword() {
   ////////////////////////////////////////////////////////////////////
 
   return (
-    <>
+    <div className=" center centerapp">
       <Logo />
       <Card>
         <Card.Body>
@@ -69,6 +69,6 @@ export default function ResetPassword() {
       <div className="w-100 text-center mt-2">
         Don't have an account? <Link to={ROUTES.SIGN_UP}>Create account</Link>
       </div>
-    </>
+    </div>
   );
 }

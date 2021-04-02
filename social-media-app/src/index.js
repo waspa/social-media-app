@@ -21,19 +21,3 @@ ReactDOM.render(
   
 );
 
-//client side rendered app: react (cra)
-  // -> database which is Firebase
-  // -> react-loading-skeleton
-  // Bootstrap instead of Tailwind CSS
-
-// Folder structure
-  // src
-    // -> components,
-    // -> constants,
-    // -> context,
-    // -> helpers,
-    // -> pages,
-    // -> hooks, 
-    // -> lib (firebase if going to live here),
-    // -> services (firebase functions in here),
-    // -> stles (tailwind's folder app/tailwind)

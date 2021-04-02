@@ -54,7 +54,7 @@ export default function Update() {
   }
 
   return (
-    <>
+    <div className=" center centerapp">
       <Card>
         <Card.Body>
           <h2 className="text-center  mb-4">Update Profile</h2>
@@ -104,6 +104,6 @@ export default function Update() {
       <div className="w-100 text-center mt-2">
         <Link to={ROUTES.DASHBOARD}> Cancel</Link>
       </div>
-    </>
+    </div>
   );
 }

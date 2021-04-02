@@ -3,6 +3,7 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Signup from "./pages/Sign-up";
+import Profile from './pages/Profile'
 import NotFound from "./pages/NotFound";
 import ResetPassword from "./pages/ResetPassword";
 //import Dashboard from "./pages/Dashboard";
@@ -36,7 +37,7 @@ function App() {
                   path={ROUTES.DASHBOARD}
                   component={Dashboard2}
                 />
-                <div className="align-items-center justify-content-center center centerapp">
+                
                   <Route path={ROUTES.LOGIN} component={Login} />
                   <Route path={ROUTES.SIGN_UP} component={Signup} />
                   <Route path={ROUTES.NOT_FOUND} component={NotFound} />
@@ -44,11 +45,12 @@ function App() {
                     path={ROUTES.RESET_PASSWORD}
                     component={ResetPassword}
                   />
+                  <Route path={ROUTES.PROFILE} component={Profile} />
                   <Route
                     path={ROUTES.UPDATE_PROFILE}
                     component={UpdateProfile}
                   />
-                </div>
+             
               </Switch>
             </AuthProvider>
 

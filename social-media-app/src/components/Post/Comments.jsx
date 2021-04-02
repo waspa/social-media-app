@@ -22,7 +22,7 @@ export default function Comments({
       
       {comments.length >= 6 && (
           <p role="button" className="sm-text font-weight-light mb-1">
-            View {comments.length} comments
+            View all comments
           </p>
         )}
         {comments.map((item) => ( ///{comments.slice(0,5).map.....}

@@ -39,9 +39,9 @@ export default function Login() {
   }, []);
 
   return (
-    <>
+    <div className=" center centerapp">
       <Logo />
-      <Card className="mt-5">
+      <Card className="mt-5 ">
         <Card.Body >
           <h2 className="text-center  mb-4">Log In</h2>
           {error && <Alert variant="danger">{error}</Alert>}
@@ -86,6 +86,6 @@ export default function Login() {
       <div className="w-100 text-center mt-2">
         Don't have an account? <Link to={ROUTES.SIGN_UP}>Create account</Link>
       </div>
-    </>
+    </div>
   );
 }
