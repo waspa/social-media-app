@@ -1,25 +1,29 @@
 import PropTypes from 'prop-types';
 import Skeleton from 'react-loading-skeleton';
 import { Row, Image, Col} from 'react-bootstrap'
+import '../../styles/global.css'
 
 export default function Photos({ photos }) {
   return (
-    <Row className="  justify-content-between mt-12 pt-4 ">
-      <div className=" d-flex">
+    <Row className=" pt-4">
+      <div className="d-flex ">
         {!photos ? (
           <>
             <Skeleton count={12} width={320} height={400} />
           </>
         ) : photos.length > 0 ? (
           photos.map((photo) => (
+            
             <Col key={photo.docId} className="">
-              <Image src={photo.imageSrc} alt={photo.caption} className="img-fluid " />
-
-              <div className=" bg-dark d-flex">
-                <p className=" items-center text-white font-weight-bold w-50">
+            <Image src={photo.imageSrc} alt={photo.caption} className="img-fluid"  />
+              
+            
+               <div className=" bg-dark d-flex col">
+              
+                <p className=" text-white font-weight-bold w-50">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    viewBox="2 3 20 20"
+                    viewBox="1 2 20 20"
                     fill="currentColor"
                     className=" mr-4"
                   >
@@ -31,11 +35,11 @@ export default function Photos({ photos }) {
                   </svg>
                   {photo.likes.length}
                 </p>
-
-                <p className="justify-content-center text-white font-weight-bold w-50">
+                
+                <p className=" text-white font-weight-bold w-50">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    viewBox="2 3 20 20"
+                    viewBox="1 2 20 20"
                     fill="currentColor"
                     className="mr-4"
                   >
@@ -47,13 +51,16 @@ export default function Photos({ photos }) {
                   </svg>
                   {photo.comments.length}
                 </p>
-              </div>
-            </Col>
+              </div> 
+              </Col>
+           
+       
+            
           ))
         ) : null}
       </div>
-
-      {!photos || (photos.length === 0 && <p className="text-center text-2xl">No Posts Yet</p>)}
+<Col>{!photos || (photos.length === 0 && <p className="d-flex justify-content-center">No Photos Yet</p>)}</Col>
+      
     </Row>
   );
 }
@@ -61,3 +68,4 @@ export default function Photos({ photos }) {
 Photos.propTypes = {
   photos: PropTypes.array.isRequired
 };
+

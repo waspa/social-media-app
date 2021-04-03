@@ -13,7 +13,7 @@ export default function Comments({
 }) {
   const [comments, setComments] = useState(allComments);
 
-  console.log(comments)
+
   
   return (
     <>

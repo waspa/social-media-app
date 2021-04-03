@@ -22,7 +22,7 @@ export default function Timeline() {
           
           photos.map((content) => <Post key={content.docId} content={content}/>)
         ) : (
-          <p>Follow people to see photos!</p>
+          <p>Befriend people to see photos!</p>
         )}
       </Col>
     </>

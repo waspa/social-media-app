@@ -45,6 +45,7 @@ export default function Header({
   }, [user?.username, profileUserId]);
   console.log(profileUserId)
   console.log(profileUsername)
+  console.log(followers)
 
   return (
     <div className="border-bottom border-dark">
@@ -72,9 +73,10 @@ export default function Header({
          
         )}
       </Col>
-      <Row className="d-grid col-6">
+      <Col className=" col-lg-10 col-md-10 " >
       <p className="font-weight-bold">{profileUsername}</p>
-        <Col className=" d-flex items-center">
+      
+        <Col className=" d-flex p-0">
         <p className="font-weight-medium mr-4">{!fullName ? <Skeleton count={1} height={24} /> : fullName}</p>
           
          
@@ -95,22 +97,28 @@ export default function Header({
             <Skeleton count={1} width={677} height={24} />
           ) : (
             <>
-              <p className="mr-2">
+            <Row >
+              <p className="mr-5">
                 <span className="font-weight-bold">{photosCount}</span> photos
               </p>
-              <p className="mr-2">
+              </Row>
+              <Row>
+              <p className="mr-5">
                 <span className="font-weight-bold">{followerCount}</span>
                 {` `}
-                {followerCount === 1 ? `friends` : `befriended`}
+                {followerCount === 1 ? `friend` : `friends`}
               </p>
-              <p className="mr-2">
+              </Row>
+              <Row>
+              <p className="mr-5">
                 <span className="font-weight-bold">{following?.length}</span> friended
               </p>
+              </Row>
             </>
           )}
         </Col>
         
-      </Row>
+      </Col>
     </Row>
     </div>
   );
