@@ -15,6 +15,7 @@ import "./styles/global.css";
 import Dashboard2 from "./pages/Dasboard2";
 import useAuthListener from "./hooks/use-auth-listener";
 import UserContext from './context/User';
+import CreatePost from "./components/Post/CreatePost";
 
 if (module.hot) {
   module.hot.accept();
@@ -45,6 +46,8 @@ function App() {
                     path={ROUTES.RESET_PASSWORD}
                     component={ResetPassword}
                   />
+                  <Route path={ROUTES.CREATE_POST} component={CreatePost} />
+                 
                   <Route path={ROUTES.PROFILE} component={Profile} />
                   <Route
                     path={ROUTES.UPDATE_PROFILE}

@@ -50,7 +50,7 @@ export default function Login() {
             <Form.Group id="email">
               <Form.Control
                 type="email"
-                placeholder="Email Adress"
+                placeholder="Email adress"
                 onChange={({ target }) => setEmail(target.value)}
                 value={email}
                 required
@@ -73,7 +73,7 @@ export default function Login() {
               className="w-100 btn-info"
               type="submit"
             >
-              Log In
+              Login
             </Button>
           </Form>
 

@@ -30,6 +30,7 @@ export default function Profile({ user }) {
 
   return (
     <Container>
+    
       <Header
         photosCount={photosCollection ? photosCollection.length : 0}
         profile={profile}
@@ -38,7 +39,7 @@ export default function Profile({ user }) {
       />
     
       <Photos photos={photosCollection} />
-      
+     
     </Container>
   );
 }

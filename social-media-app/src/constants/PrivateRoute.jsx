@@ -6,6 +6,8 @@ import * as ROUTES from "../constants/routes";
 export default function PrivateRoute({ component: Component, ...rest }) {
   const { currentUser } = useAuth();
 
+
+
   return (
     <Route
       {...rest}

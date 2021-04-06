@@ -47,6 +47,7 @@ export default function Signup() {
           username: username.toLowerCase(),
           fullName,
           emailAdress: email.toLowerCase(),
+          followers: [],
           following: [],
           dateCreated: Date.now(),
         });
@@ -64,7 +65,8 @@ export default function Signup() {
       setError("That username is already taken.");
       setUserName("");
       setPassword("");
-      setPasswordConfirm("")
+      setPasswordConfirm("");
+      
     }
   };
 
@@ -98,7 +100,7 @@ export default function Signup() {
                 aria-label="Enter your full name"
                 type="name"
                 required
-                placeholder="Full Name"
+                placeholder="Full name"
                 value={fullName}
                 onChange={({ target }) => setFullName(target.value)}
               />
@@ -108,7 +110,7 @@ export default function Signup() {
               <Form.Control
                 aria-label="Enter your Email Adress"
                 type="email"
-                placeholder="Email Adress"
+                placeholder="Email adress"
                 value={email}
                 onChange={({ target }) => setEmail(target.value)}
                 required

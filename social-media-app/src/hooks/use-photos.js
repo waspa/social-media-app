@@ -8,7 +8,7 @@ export default function usePhotos() {
     const [photos, setPhotos] = useState(null);
     const { 
       //uid comes from firebase
-      user: { uid: userId = ('')} //used to be called uid, is now called userId
+      user: { uid: userId = ""} //used to be called uid, is now called userId
     } = useContext(UserContext)
 
     useEffect(() => {
