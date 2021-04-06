@@ -71,14 +71,14 @@ export function seedDatabase(firebase) {
         });
     }
     // eslint-disable-next-line prefer-const
-    for (let i = 1; i <= 5; ++i) {
+    /* for (let i = 1; i <= 5; ++i) {
       firebase
         .firestore()
-        .collection('videos')
+        .collection('photos')
         .add({
-          videoId: i,
+          photoId: i,
           userId: '4',
-          videoSrc: `/videos/users/huskey/${i}.mp4`,
+          photoSrc: `/videos/users/jane/${i}.mp4`,
           caption: 'Carbonated Water',
           likes: [],
           comments: [
@@ -87,7 +87,7 @@ export function seedDatabase(firebase) {
               comment: 'Looks really tasty!'
             },
             {
-              displayName: 'jane',
+              displayName: 'huskey',
               comment: 'Would you mind if I drink this?'
             }
           ],
@@ -95,6 +95,6 @@ export function seedDatabase(firebase) {
           userLongitude: '74.0060°',
           dateCreated: Date.now()
         });
-    }
+    } */
   }
   

@@ -19,8 +19,8 @@ export default function AddComment({
   const handleSubmitComment = (event) => {
     event.preventDefault();
 
-    //setComments([ ...comments, { displayName, comment } ]);
-    setComments([{ displayName, comment } , ...comments  ]);
+    //setComments([ { displayName, comment },  ...comments]);
+    setComments([...comments, { displayName, comment }   ]);
     setComment("");
 
     //give a new array []

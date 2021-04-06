@@ -5,7 +5,7 @@ import Skeleton from "react-loading-skeleton";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 import { Col, Row, Form, Container, Button, Image } from "react-bootstrap";
 
-import { storage, db, FieldValue } from "../../lib/Firebase";
+import { storage, db } from "../../lib/Firebase";
 import firebase from "firebase";
 
 
@@ -56,14 +56,14 @@ export default function CreatePost() {
             .child(`${image.name}.jpg`)
             .getDownloadURL()
             .then((imageUrl) => {
-              FieldValue.collection("posts").doc(image).set({
+              db.collection("posts").doc(image).set({
                 
                 timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                 caption: caption,
                 imageSrc: imageUrl,
                 userId: userId,
                 likes: [],
-              
+              comments: [],
                 username: username.toLowerCase(),
                 /* userProfileUrl:
                   "https://avatars0.githubusercontent.com/u/55942632?s=460&u=f702a3d87d1f9c125f1ead9b3bec93d26cd3b3a0&v=4", */

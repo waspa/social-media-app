@@ -111,7 +111,7 @@ export default function Header({
                   <p className="mr-5">
                     <span className="font-weight-bold">{followerCount}</span>
                     {` `}
-                    {followerCount === 1 ? `friend` : `friends`}
+                    friended
                   </p>
                 </Row>
                 <Row>
@@ -119,7 +119,7 @@ export default function Header({
                     <span className="font-weight-bold">
                       {following?.length}
                     </span>{" "}
-                    friended
+                    {followerCount === 1 ? `friend` : `friends`}
                   </p>
                 </Row>
               </>

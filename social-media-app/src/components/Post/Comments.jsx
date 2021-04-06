@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import { formatDistance } from "date-fns"; //changes the unix dateCreated to normal date
+//import { formatDistance } from "date-fns"; //changes the unix dateCreated to normal date
 import { Link } from "react-router-dom";
 import AddComment from "./AddComments";
 import { Col } from "react-bootstrap";
@@ -38,9 +38,9 @@ export default function Comments({
           </p>
           
         ))}
-        <p className="text-gray-base uppercase text-xs mt-2">
+        {/* <p className="text-gray-base uppercase text-xs mt-2">
           {formatDistance(posted, new Date())} ago
-        </p>
+        </p> */}
       </Col>
         </div>
         
