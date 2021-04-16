@@ -1,0 +1,24 @@
+.iconSpan{
+    display: flex;
+    align-items: center;
+    padding: .375rem .75rem;
+    margin-bottom: 0;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.formControl{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.container{
+    width: 100% !important;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}

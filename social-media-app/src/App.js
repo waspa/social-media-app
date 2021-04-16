@@ -6,6 +6,7 @@ import Signup from "./pages/Sign-up";
 import NotFound from "./pages/NotFound";
 import ResetPassword from "./pages/ResetPassword";
 import Dashboard from "./pages/Dashboard";
+import FriendProfile from "./pages/FriendProfile";
 import UpdateProfile from "./pages/UpdateProfile";
 import PrivateRoute from "./constants/PrivateRoute";
 import * as ROUTES from "./constants/routes";
@@ -19,38 +20,39 @@ function App() {
   return (
     <>
       <AuthProvider>
-        <Container
-          className="d-flex align-items-center justify-content-center"
-          style={{ minHeight: "100vh" }}
-        >
-          <div className="w-100" style={{ maxWidth: "400px" }}>
-            <Router>
-            
-              <AuthProvider>
-                <Switch>
-                  <PrivateRoute
-                    exact
-                    path={ROUTES.DASHBOARD}
-                    component={Dashboard}
-                  />
-                  <Route path={ROUTES.LOGIN} component={Login} />
-                  <Route path={ROUTES.SIGN_UP} component={Signup} />
-                  <Route path={ROUTES.NOT_FOUND} component={NotFound} />
-                  <Route
-                    path={ROUTES.RESET_PASSWORD}
-                    component={ResetPassword}
-                  />
-                  <Route
-                    path={ROUTES.UPDATE_PROFILE}
-                    component={UpdateProfile}
-                  />
-                </Switch>
-              </AuthProvider>
+       
 
-              {/*        </FirebaseContext.Provider> */}
-            </Router>
-          </div>
-        </Container>
+          <Router>
+
+            <AuthProvider>
+              <Switch>
+                <PrivateRoute
+                  exact
+                  path={ROUTES.DASHBOARD}
+                  component={Dashboard}
+                />
+                <PrivateRoute
+               
+                  path={ROUTES.FRIENDS_PROFILE}
+                  component={FriendProfile}
+                />
+                <Route path={ROUTES.LOGIN} component={Login} />
+                <Route path={ROUTES.SIGN_UP} component={Signup} />
+                <Route path={ROUTES.NOT_FOUND} component={NotFound} />
+                <Route
+                  path={ROUTES.RESET_PASSWORD}
+                  component={ResetPassword}
+                />
+                <Route
+                  path={ROUTES.UPDATE_PROFILE}
+                  component={UpdateProfile}
+                />
+              </Switch>
+            </AuthProvider>
+
+            {/*        </FirebaseContext.Provider> */}
+          </Router>
+ 
       </AuthProvider>
     </>
   );

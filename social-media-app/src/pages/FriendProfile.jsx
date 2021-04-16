@@ -1,32 +1,50 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { Form, FormControl, InputGroup } from "react-bootstrap";
-import { useAuth } from "../context/AuthContext";
-import Feed from "../components/Feed";
 import Layout from "../components/Layout";
-import { FaMicrophone } from "react-icons/fa";
-import styles from "./dashboard.module.css";
-import { streamPosts, updatePost } from "../services/firebase";
+import Feed from "../components/Feed";
+ 
+import { streamUserPosts,  updatePost, getUserById } from "../services/firebase";
+import {  useParams } from "react-router-dom"
 
-export default function Dashboard() {
-    const { currentUser } = useAuth();
+export default function FriendProfile() {
+ 
+    const [user, setUser] = useState();
     const [posts, setPosts] = useState([]);
+ 
+    const { uid } = useParams()
 
-    console.log(currentUser.uid);
+    // console.log(params)
+    // const handleCreatePost = useCallback(
+    //     (post) => {
+    //         createPost({
+    //             ...post,
+    //             userId: currentUser.uid,
+    //             username: currentUser.displayName,
+    //         })
+    //             .then((docRef) => {
+    //                 console.log("Document written with ID: ", docRef.id);
+    //             })
+    //             .catch((error) => {
+    //                 console.error("Error adding document: ", error);
+    //             });
+    //     },
+    //     [uid]
+    // );
+
     const buildPost = useCallback(
         (post, key) =>
-            post[key]?.find((id) => id === currentUser.uid)
+            post[key]?.find((id) => id === uid)
                 ? {
                     ...post,
                     [key]:
-                        post[key]?.filter((userId) => userId !== currentUser.uid) || [],
+                        post[key]?.filter((userId) => userId !== uid) || [],
                 }
                 : {
                     ...post,
                     [key]: post[key]
-                        ? [...post[key], currentUser.uid]
-                        : [currentUser.uid],
+                        ? [...post[key], uid]
+                        : [uid],
                 },
-        [currentUser.uid]
+        [uid]
     );
 
     const onTapHeartIcon = useCallback(
@@ -49,10 +67,20 @@ export default function Dashboard() {
         [buildPost]
     );
 
+    useEffect(()=> {
+        if(uid){
+            getUserById(uid)
+            .then(value=> {
+                
+                console.log(value.data())
+            }).then(error => console.log(error))
+        }
+    },[uid])
+
     useEffect(() => {
         document.title = "Dashboard - Social App";
 
-        const unsubscribe = streamPosts({
+        const unsubscribe = streamUserPosts(uid, {
             next: (query) => {
                 const feeds = query.docs.map((docSnapshot) => {
                     return { ...docSnapshot.data(), id: docSnapshot.id };
@@ -67,31 +95,25 @@ export default function Dashboard() {
         });
 
         return unsubscribe;
-    }, [posts]);
+    }, [posts, uid]);
 
     return (
-
         <Layout>
-            <Form inline className={styles.form}>
-                <div className={styles.searchContainer}>
-                    <InputGroup>
-                        <FormControl type="text" placeholder="Search a friend" />
-                        <InputGroup.Append>
-                            <InputGroup.Text>
-                                <FaMicrophone />
-                            </InputGroup.Text>
-                        </InputGroup.Append>
-                    </InputGroup>
-                </div>
-            </Form>
+            {/* <Row>
+                <Col>
+                    <CommentForm onSubmit={handleCreatePost} />
+                </Col>
+            </Row> */}
             {posts.map((post, index) => (
                 <Feed
                     key={post.id}
                     post={post}
                     onTapHeartIcon={onTapHeartIcon}
                     onTapLikeIcon={onTapLikeIcon}
+                    showCommentBtn={false}
                 />
             ))}
-        </Layout>
+
+       </Layout>
     );
 }

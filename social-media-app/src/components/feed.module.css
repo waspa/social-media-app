@@ -1,0 +1,34 @@
+.card{
+    padding: 10px;
+    background-color: #ffffff;
+    margin-top: 15px;
+}
+.cardHeader{
+    display: flex;
+    padding: 0 !important;
+    justify-content: space-between;
+    background-color: #ffffff !important;
+    border: none !important;
+}
+
+.cardFooter{
+    background-color: #ffffff !important;
+    border: none !important;
+}
+.cardFooterRow{
+    justify-content: space-between;
+    background-color: #ffffff;
+}
+.iconContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.iconItem{
+    margin-right: 10px;
+}
+
+.icon {
+    cursor: pointer;
+}
