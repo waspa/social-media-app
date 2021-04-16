@@ -1,15 +1,13 @@
-import React, { useContext, useState, useEffect, createContext} from "react";
+import React, { useContext, useState, useEffect, createContext } from "react";
 import { auth } from "../lib/Firebase";
 
-const AuthContext = createContext();
-
+export const AuthContext = createContext();
 
 export function useAuth() {
   return useContext(AuthContext);
-  
 }
 
-export function AuthProvider({ children }) { 
+export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
 
@@ -24,24 +22,24 @@ export function AuthProvider({ children }) {
   function logout() {
     return auth.signOut();
   }
-  
+
   function resetPassword(email) {
     return auth.sendPasswordResetEmail(email);
   }
 
   function updateEmail(email) {
-    return currentUser.updateEmail(email)
+    return currentUser.updateEmail(email);
   }
 
-  function updatePassword(password){
-    return currentUser.updatePassword(password)
+  function updatePassword(password) {
+    return currentUser.updatePassword(password);
   }
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
       setLoading(false);
-    }); 
+    });
     return unsubscribe;
   }, []);
 
@@ -52,7 +50,7 @@ export function AuthProvider({ children }) {
     logout,
     resetPassword,
     updateEmail,
-    updatePassword
+    updatePassword,
   };
   return (
     <AuthContext.Provider value={value}>

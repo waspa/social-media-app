@@ -28,7 +28,8 @@ export default app;
 const firebase = Firebase.initializeApp(config); */
 
 const { FieldValue } = firebase.firestore;
+const db = firebase.firestore();
 
 // Here is where I want to call the seed file (only once)
 
-export { firebase, FieldValue };
+export { firebase, FieldValue, db };
