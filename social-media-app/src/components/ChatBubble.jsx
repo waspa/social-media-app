@@ -1,35 +1,24 @@
 import React from "react";
 import { Media } from "react-bootstrap";
+import { BsFillPersonFill } from "react-icons/bs";
+import moment from "moment";
 
-const ChatBubble = ({ user, message, isRightBubble, isLeftBubble }) => {
+const ChatBubble = ({ user, message, isRightBubble }) => {
 	return (
-		<Media>
+		<Media className={isRightBubble ? "media-left" : "media-right"}>
 			{isRightBubble ? (
-				<img
-					width={64}
-					height={64}
-					className="ml-3"
-					src="holder.js/64x64"
-					alt="Generic placeholder"
-				/>
+				<BsFillPersonFill style={{ width: "80px", height: "60px" }} />
 			) : null}
 			<Media.Body>
-				<p>
-					Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-					scelerisque ante sollicitudin commodo. Cras purus odio,
-					vestibulum in vulputate at, tempus viverra turpis. Fusce
-					condimentum nunc ac nisi vulputate fringilla. Donec lacinia
-					congue felis in faucibus.
-				</p>
+				{message.text ? <p>{message.text}</p> : null}
+				{message.createdAt ? (
+					<p>
+						Posted at: {message.createdAt.toDate().toDateString()}
+					</p>
+				) : null}
 			</Media.Body>
-			{isLeftBubble ? (
-				<img
-					width={64}
-					height={64}
-					className="ml-3"
-					src="holder.js/64x64"
-					alt="Generic placeholder"
-				/>
+			{!isRightBubble ? (
+				<BsFillPersonFill style={{ width: "80px", height: "60px" }} />
 			) : null}
 		</Media>
 	);

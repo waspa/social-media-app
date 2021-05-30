@@ -1,24 +1,46 @@
-import React, { useCallBack } from "react";
+import React, { useCallBack, useContext } from "react";
 import { Media } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
+import { BsFillPersonFill, BsFillChatFill } from "react-icons/bs";
 
-const UserCard = ({ user }) => {
+import { ChatContext } from "../../context/ChatContext";
+
+const UserCard = ({ user, handleClick }) => {
+	const history = useHistory();
+	const {
+		createPrivateRoom,
+		fetchAllUsers,
+		getChatRoomId,
+		setFriendDetails,
+	} = useContext(ChatContext);
+
 	return (
-		<Media as="li">
-			<img
-				width={64}
-				height={64}
-				className="mr-3"
-				src="holder.js/64x64"
-				alt="Generic placeholder"
-			/>
+		<Media
+			as="li"
+			onClick={async () => {
+				const roomId = await getChatRoomId(user.id);
+				setFriendDetails(user);
+				// history.push(`/chat-room/${roomId}`);
+				handleClick(roomId, user);
+				// const roomCreated = await createPrivateRoom(user.id);
+				// console.log("roomCreated ", roomCreated);
+				// const users = await fetchAllUsers();
+			}}
+		>
+			<BsFillPersonFill style={{ width: "80px", height: "60px" }} />
 			<Media.Body>
-				<h5>List-based media object</h5>
-				<p>
-					Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-					scelerisque ante sollicitudin commodo. Cras purus odio,
-				</p>
+				<h5>{user && user.fullName}</h5>
+				<p>{(user && user.lastMessage) || "test message"}</p>
 			</Media.Body>
+			<BsFillChatFill
+				style={{
+					width: "30px",
+					height: "30px",
+					display: "flex",
+					alignItems: "center",
+					justifyContent: "center",
+				}}
+			/>
 		</Media>
 	);
 };

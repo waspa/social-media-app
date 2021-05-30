@@ -1,99 +1,203 @@
-import React, { useContext, useEffect, useReducer, createContext } from "react";
-import { db, FieldValue } from "../lib/Firebase";
+import React, {
+  useContext,
+  useEffect,
+  useState,
+  useReducer,
+  createContext,
+} from "react";
+import { db, FieldValue, firebase } from "../lib/Firebase";
 import { AuthContext } from "./AuthContext";
 
 export const ChatContext = createContext();
 
 export const ChatProvider = ({ children }) => {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, currentUserId, currentUserDetails } = useContext(
+    AuthContext
+  );
+  const [chatRecipient, setChatRecipient] = useState();
 
   const readIds = async (collection, ids) => {
     const reads = ids.map((id) => collection.doc(id).get());
     const result = await Promise.all(reads);
-    return result.map((item) => item.data());
+    return result.map((item) => item);
   };
 
   const fetchFriends = async () => {
-    console.log(
-      "currentUser userId, uid ",
-      currentUser.userId,
-      currentUser.uid
-    );
-    // return await db
-    //   .collection("users")
-    //   .doc(currentUser.uid)
-    //   .get()
-    //   .then((snapshot) => {
-    //     console.log("snapshot is ", snapshot);
-    //     const users = readIds(
-    //       db.collection("users"),
-    //       snapshot && snapshot.friends
-    //     );
-    //     const all_users = [];
-    //     users.forEach((doc) => {
-    //       all_users.push(doc);
-    //     });
-    //   })
-    //   .catch((errors) => {
-    //     return errors;
-    //   });
-    return await db.collection("users").get();
-    // return await db.collection("users").doc(currentUser.uid).get();
+    return await db
+      .collection("users")
+      .doc(currentUserId)
+      .get()
+      .then(async (snapshot) => {
+        let users = [];
 
-    // add a field to already existing doc
-    // var cityRef = await db.collection("users").doc(currentUser.uid);
+        if (snapshot.data() && snapshot.data().followers) {
+          users = await readIds(
+            db.collection("users"),
+            snapshot.data().followers
+          );
+        }
 
+        let all_users = [];
+        users.forEach((doc) => {
+          all_users.push(doc);
+        });
+        return all_users;
+      });
+
+    // working ...
+    // var cityRef = await db.collection("users").doc(userId);
     // var setWithMerge = cityRef.set(
     //   {
-    //     results: [],
+    //     followers: ["9nenbRrcB5iJSOpNtPct", "FGGUkbL9EOMiKloyHo8F"],
     //   },
     //   { merge: true }
     // );
 
     // return setWithMerge;
 
+    // working ...
     // return await db
     //   .collection("users")
-    //   .doc(currentUser.uid)
+    //   .doc(userId)
     //   .update({
     //     followers: FieldValue.arrayUnion("Rgew0I00LeVxIz5RgK5BU5eN5bQ2"),
     //   });
   };
 
-  /*
-  "Rgew0I00LeVxIz5RgK5BU5eN5bQ2"//
-  "ekMr5v6AtfUakneN8AgwCgzFPMR2"
-  "kVfSE0EagUZw1D2H7kDujanVCvv1"
-  */
-
   const fetchFriendsPosts = (userId) => {
     return db.collection("posts").where("postedBy", "==", userId).get();
   };
 
-  const chatWithFriend = (message, userId) => {
-    // add currentUser
-    return db.collection("chats").add({
+  /********** Chats ********/
+  /*
+   *    {
+   *      id: 'documentId'
+   *      messages:
+   *        [
+   *          {
+   *            id: 'chatId',
+   *            text: '',
+   *            photoUrl: '',
+   *            videoUrl: '',
+   *            postedBy: '',
+   *            createdAt: '',
+   *          }
+   *        ]
+   *      createdAt: ''
+   *     }
+   * store documentId in under users document for both parties involved in chat ...
+   * users document { ..., rooms: [ {roomId: 'documentId', friend: 'friendId'} ] }
+   */
+  const createPrivateRoom = async (userId) => {
+    const docRef = await db.collection("rooms").add({
       createdAt: FieldValue.serverTimestamp(),
-      postedBy: userId,
-      message: message,
+      messages: [],
     });
+
+    const roomRef = await db
+      .collection("users")
+      .doc(userId)
+      .update({
+        rooms: FieldValue.arrayUnion({
+          roomId: docRef.id,
+          friend: currentUserId,
+        }),
+      });
+
+    await db
+      .collection("users")
+      .doc(currentUserId)
+      .update({
+        rooms: FieldValue.arrayUnion({
+          roomId: docRef.id,
+          friend: userId,
+        }),
+      });
+
+    return docRef.id;
   };
 
-  const fetchChats = (userId) => {
-    // get currentUser
-    return db
+  const getUserDetails = async (id) => {
+    const user = await db.collection("users").doc(id).get();
+    return user;
+  };
+
+  const getChatRoomId = async (userId) => {
+    const user = currentUserDetails.data();
+    const rooms = user && user.rooms;
+    let roomId = null;
+    if (rooms) {
+      rooms.map((room) => {
+        if (room.friend === userId) {
+          roomId = room.roomId;
+          return;
+        }
+      });
+    } else {
+      roomId = await createPrivateRoom();
+    }
+
+    return roomId;
+  };
+
+  const postChat = async (message, photoUrl, videoUrl, roomId) => {
+    return await db
+      .collection("rooms")
+      .doc(roomId)
+      .update({
+        messages: FieldValue.arrayUnion({
+          createdAt: firebase.firestore.Timestamp.now(),
+          postedBy: currentUserId,
+          text: message,
+          photoUrl: photoUrl,
+          videoUrl: videoUrl,
+        }),
+      });
+  };
+
+  const fetchChats = (roomId) => {
+    return db.collection("rooms").doc(roomId);
+  };
+
+  const fetchAllChats = async () => {
+    return await db
+      .collection("rooms")
+      .get()
+      .then((items) => {
+        items.docs.map((item) => {
+          console.log("chat item is  ", item.data());
+        });
+      });
+  };
+
+  const setFriendDetails = (user) => {
+    setChatRecipient(user);
+  };
+
+  const fetchLastChatMessage = async (userId) => {
+    return await db
       .collection("chats")
-      .where("postedBy", "==", userId)
-      .where("addressedTo", "==", currentUser.uid)
-      .orderBy("createdAt", "desc")
-      .get();
+      .where("sender", "==", userId)
+      // .orderBy("createdAt", "desc")
+      .limit(10)
+      .get()
+      .then((snapshot) => {
+        const allMsgs = [];
+        let lastMessage = "";
+        snapshot.docs.map((item) => {
+          if (item.data()) allMsgs.push(item.data);
+        });
+
+        if (allMsgs.length > 0) lastMessage = allMsgs[allMsgs.length - 1];
+        return lastMessage;
+      });
   };
 
   const addPost = (message) => {
     // add currentUser
     return db.collection("posts").add({
       createdAt: FieldValue.serverTimestamp(),
-      postedBy: currentUser,
+      postedBy: currentUserId,
       message: message,
       likes: [],
       loves: [],
@@ -106,26 +210,26 @@ export const ChatProvider = ({ children }) => {
   };
 
   const addComment = (postId, message) => {
-    // add currentUser
+    // add currentUserId
     return db
       .collection("posts")
       .doc(postId)
       .update({
         comments: FieldValue.arrayUnion({
           createdAt: FieldValue.serverTimestamp(),
-          createdBy: currentUser,
+          createdBy: currentUserId,
           message: message,
         }),
       });
   };
 
   const lovePost = (messageId) => {
-    // add currentUser
+    // add currentUserId
     return db
       .collection("posts")
       .doc(messageId)
       .update({
-        love: FieldValue.arrayUnion(currentUser),
+        love: FieldValue.arrayUnion(currentUserId),
       });
   };
 
@@ -134,15 +238,28 @@ export const ChatProvider = ({ children }) => {
       .collection("posts")
       .doc(messageId)
       .update({
-        likes: FieldValue.arrayUnion(currentUser),
+        likes: FieldValue.arrayUnion(currentUserId),
       });
   };
 
-  // friend request => { userId, requests: Array of UserIds }
+  const getRequestRoomId = async () => {
+    // check if the user already has a request room
+    return await db
+      .collection("requests")
+      .where("userId", "==", currentUserId)
+      .get()
+      .then((snapshot) => {
+        return snapshot.docs[0].data();
+      })
+      .catch(async (err) => {
+        console.log(" the request room Id did not exist and error is ", err);
+      });
+  };
+
   const fetchFriendRequests = () => {
     return db
       .collection("requests")
-      .where("userId", "==", currentUser)
+      .where("userId", "==", currentUserId)
       .get()
       .then((snapshot) => {
         return readIds(db.collection("users"), snapshot && snapshot.requests);
@@ -152,53 +269,111 @@ export const ChatProvider = ({ children }) => {
       );
   };
 
-  const sendFriendRequest = (userId) => {
-    // get currentUser
-    return db
-      .collection("requests")
-      .where("userId", "==", userId)
-      .update({ requests: FieldValue.arrayUnion(currentUser) });
+  const fetchRequests = () => {
+    return db.collection("requests").where("userId", "==", currentUserId);
   };
 
-  const acceptFriendRequest = (userId, requestId) => {
-    // get currentUser
-    return db
+  const sendFriendRequest = async (userId) => {
+    return await db
+      .collection("requests")
+      .where("userId", "==", userId)
+      .get()
+      .then(async (snapshot) => {
+        let userId = snapshot && snapshot.docs[0] && snapshot.docs[0].id;
+        let results = await db
+          .collection("requests")
+          .doc(userId)
+          .update({
+            requests: FieldValue.arrayUnion(currentUserId),
+          });
+      })
+      .catch((err) => {
+        console.log("sendFriendRequest error is ", err);
+      });
+  };
+
+  const acceptFriendRequest = async (userId, requestId) => {
+    return await db
       .collection("requests")
       .doc(requestId)
       .update({
         requests: FieldValue.arrayRemove(userId),
       })
-      .then(() => {
-        return db
+      .then(async () => {
+        // add userId as follower to current user
+        await db
           .collection("users")
-          .doc(currentUser)
-          .update({ friends: FieldValue.arrayUnion(userId) })
-          .get();
+          .doc(currentUserId)
+          .update({ followers: FieldValue.arrayUnion(userId) });
+
+        // add current user as follower to userId
+        return await db
+          .collection("users")
+          .doc(userId)
+          .update({ followers: FieldValue.arrayUnion(currentUserId) });
+      });
+  };
+
+  const declineFriendRequest = async (userId, requestId) => {
+    return await db
+      .collection("requests")
+      .doc(requestId)
+      .update({
+        requests: FieldValue.arrayRemove(userId),
       });
   };
 
   const searchFriends = (search) => {
-    // return db.collection("users").where("fullName", "==", search).get();
     return db
       .collection("users")
       .whereGreaterThanOrEqualTo("fullName", search)
       .get();
   };
 
+  const getUserId = async (uid) => {
+    var cityRef = await db.collection("users").where("userId", "==", uid).get();
+    console.log("cityRef[0]", cityRef.docs[0].data());
+  };
+
+  const fetchAllUsers = async () => {
+    const results = await db.collection("users").get();
+    results.docs.map((user) =>
+      console.log("user object is ", user.id, user.data())
+    );
+    return null;
+  };
+
+  const fetchUsers = () => {
+    return db.collection("users");
+  };
+
   const value = {
     fetchFriends,
     fetchFriendsPosts,
-    chatWithFriend,
+    createPrivateRoom,
+    getChatRoomId,
+    postChat,
+    setFriendDetails,
     fetchChats,
+    fetchLastChatMessage,
     addPost,
     fetchPosts,
     addComment,
     lovePost,
     likePost,
+    getRequestRoomId,
     fetchFriendRequests,
     sendFriendRequest,
     acceptFriendRequest,
+    declineFriendRequest,
     searchFriends,
+    fetchAllUsers,
+    chatRecipient,
+    fetchAllChats,
+    fetchUsers,
+    fetchRequests,
+    readIds,
+    getUserDetails,
   };
 
   return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>;
