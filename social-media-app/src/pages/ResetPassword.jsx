@@ -7,7 +7,9 @@ import Logo from "../components/Logo";
 
 export default function ResetPassword() {
   //const { firebase } = useContext(FirebaseContext);
+
   const { resetPassword } = useAuth();
+
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -60,14 +62,10 @@ export default function ResetPassword() {
                   required
                 />
               </Form.Group>
-
-              <Button
-                disabled={loading}
-                className="w-100 btn-info"
-                type="submit"
-              >
+              <Button disabled={loading} className="w-100 btn-info" type="submit">
                 Reset password
-              </Button>
+            </Button>
+
             </Form>
             <div className="w-100 text-center mt-3">
               <Link to={ROUTES.LOGIN}>Login</Link>
