@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Card, Alert, Form, Button } from "react-bootstrap";
-import {useAuth} from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 import "./Login.css";
 import Logo from "../components/Logo";
 import * as ROUTES from "../constants/routes";
@@ -9,12 +9,11 @@ import * as ROUTES from "../constants/routes";
 export default function Login() {
   const history = useHistory();
   //const { firebase } = useContext(FirebaseContext);
-  const {login} = useAuth();
+  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   //const [loading, setLoading] = useState('')
-
 
   const isInvalid = password === "" || email === "";
 
@@ -22,7 +21,7 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      setError('')
+      setError("");
       //setLoading(true)
       await login(email, password);
       history.push(ROUTES.DASHBOARD);
@@ -68,7 +67,7 @@ export default function Login() {
             </Form.Group>
 
             <Button
-            //disabled={loading}
+              //disabled={loading}
               disabled={isInvalid}
               className="w-100 btn-info"
               type="submit"
