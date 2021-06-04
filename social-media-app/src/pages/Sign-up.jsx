@@ -1,18 +1,18 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
-import  {useAuth} from "../context/AuthContext";
-import FirebaseContext from '../context/Firebase'
+import { useAuth } from "../context/AuthContext";
+import FirebaseContext from "../context/Firebase";
 import "./Login.css";
 import * as ROUTES from "../constants/routes";
 import { doesUsernameExist } from "../services/firebase";
-import { Card, Button, Form, Alert } from "react-bootstrap";
+import { Card, Button, Form, Alert, Container } from "react-bootstrap";
 import Logo from "../components/Logo";
 
 export default function Signup() {
   const history = useHistory();
   const { firebase } = useContext(FirebaseContext);
-  const {signup} = useAuth()
-  const [username, setUserName] = useState('');
+  const { signup } = useAuth();
+  const [username, setUserName] = useState("");
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -57,14 +57,14 @@ export default function Signup() {
         setEmail("");
         setPassword("");
         setUserName("");
-        setPasswordConfirm("")
+        setPasswordConfirm("");
         setError(error.message);
       }
     } else {
       setError("That username is already taken.");
       setUserName("");
       setPassword("");
-      setPasswordConfirm("")
+      setPasswordConfirm("");
     }
   };
 
@@ -73,84 +73,87 @@ export default function Signup() {
   }, []);
 
   return (
-    <>
-      <Logo />
-      <Card>
-        <Card.Body>
-          <h2 className="text-center  mb-4">Sign Up</h2>
+    <Container
+      className="d-flex align-items-center justify-content-center"
+      style={{ minHeight: "100vh" }}
+    >
+      <div className="w-100" style={{ maxWidth: "400px" }}>
+        <Logo />
+        <Card>
+          <Card.Body>
+            <h2 className="text-center  mb-4">Sign Up</h2>
 
-          {error && <Alert variant="danger">{error}</Alert>}
-          <Form onSubmit={handleSignup} method="POST">
-            <Form.Group id="username">
-              <Form.Control
-                aria-label="Enter your username"
-                type="name"
-                required
-                placeholder="Username"
-                
-                value={username}
-                onChange={({ target }) => setUserName(target.value)}
-              />
-            </Form.Group>
+            {error && <Alert variant="danger">{error}</Alert>}
+            <Form onSubmit={handleSignup} method="POST">
+              <Form.Group id="username">
+                <Form.Control
+                  aria-label="Enter your username"
+                  type="name"
+                  required
+                  placeholder="Username"
+                  value={username}
+                  onChange={({ target }) => setUserName(target.value)}
+                />
+              </Form.Group>
 
-            <Form.Group id="name">
-              <Form.Control
-                aria-label="Enter your full name"
-                type="name"
-                required
-                placeholder="Full Name"
-                value={fullName}
-                onChange={({ target }) => setFullName(target.value)}
-              />
-            </Form.Group>
+              <Form.Group id="name">
+                <Form.Control
+                  aria-label="Enter your full name"
+                  type="name"
+                  required
+                  placeholder="Full Name"
+                  value={fullName}
+                  onChange={({ target }) => setFullName(target.value)}
+                />
+              </Form.Group>
 
-            <Form.Group id="email">
-              <Form.Control
-                aria-label="Enter your Email Adress"
-                type="email"
-                placeholder="Email Adress"
-                value={email}
-                onChange={({ target }) => setEmail(target.value)}
-                required
-              />
-            </Form.Group>
+              <Form.Group id="email">
+                <Form.Control
+                  aria-label="Enter your Email Adress"
+                  type="email"
+                  placeholder="Email Adress"
+                  value={email}
+                  onChange={({ target }) => setEmail(target.value)}
+                  required
+                />
+              </Form.Group>
 
-            <Form.Group id="password">
-              <Form.Control
-                aria-label="Enter your password"
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={({ target }) => setPassword(target.value)}
-                required
-              />
-            </Form.Group>
+              <Form.Group id="password">
+                <Form.Control
+                  aria-label="Enter your password"
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={({ target }) => setPassword(target.value)}
+                  required
+                />
+              </Form.Group>
 
-            <Form.Group id="password-confirm">
-              <Form.Control
-                aria-label="Confirm password"
-                type="password"
-                placeholder="Confirm password"
-                value={passwordConfirm}
-                onChange={({ target }) => setPasswordConfirm(target.value)}
-                required
-              />
-            </Form.Group>
+              <Form.Group id="password-confirm">
+                <Form.Control
+                  aria-label="Confirm password"
+                  type="password"
+                  placeholder="Confirm password"
+                  value={passwordConfirm}
+                  onChange={({ target }) => setPasswordConfirm(target.value)}
+                  required
+                />
+              </Form.Group>
 
-            <Button
-              disabled={isInvalid}
-              className={`w-100 btn-info rounded ${isInvalid}`}
-              type="submit"
-            >
-              Sign Up
-            </Button>
-          </Form>
-        </Card.Body>
-      </Card>
-      <div className="w-100 text-center mt-2">
-        Already have an account? <Link to={ROUTES.LOGIN}> Log in</Link>
+              <Button
+                disabled={isInvalid}
+                className={`w-100 btn-info rounded ${isInvalid}`}
+                type="submit"
+              >
+                Sign Up
+              </Button>
+            </Form>
+          </Card.Body>
+        </Card>
+        <div className="w-100 text-center mt-2">
+          Already have an account? <Link to={ROUTES.LOGIN}> Log in</Link>
+        </div>
       </div>
-    </>
+    </Container>
   );
 }
-
