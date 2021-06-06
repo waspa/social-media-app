@@ -31,13 +31,16 @@ const ChatRoom = ({ id, user }) => {
 
 			setLoading(false);
 			setMessage(chatsArray);
+
+			var elem = document.getElementById("chatElem");
+			elem.scrollTop = elem.scrollHeight;
 		});
 	}, [id]);
 
 	return (
 		<>
 			<h5>Recent chats with {user && user.fullName}</h5>
-			<div className="chat-container">
+			<div className="chat-container" id="chatElem">
 				{isloading ? (
 					<span>Loading</span>
 				) : chatMessages.length > 0 ? (
