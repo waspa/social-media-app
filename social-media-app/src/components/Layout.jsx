@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 import styles from "./layout.module.css";
+
+import { AuthContext } from "../context/AuthContext";
+
 const Layout = ({ children }) => {
+  const { logout } = useContext(AuthContext);
   return (
     <Container className={styles.container}>
       <Navbar bg="light" sticky="top">
@@ -20,6 +24,14 @@ const Layout = ({ children }) => {
           </Nav.Link>
           <Nav.Link>
             <NavLink to="/get-requests">Requests</NavLink>
+          </Nav.Link>
+          <Nav.Link
+            onClick={() => {
+              console.log("Logout user");
+              logout();
+            }}
+          >
+            Logout
           </Nav.Link>
         </Nav>
       </Navbar>
