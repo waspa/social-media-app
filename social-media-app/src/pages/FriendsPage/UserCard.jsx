@@ -27,9 +27,9 @@ const UserCard = ({ user, handleClick }) => {
 				// const users = await fetchAllUsers();
 			}}
 		>
-			<BsFillPersonFill style={{ width: "80px", height: "60px" }} />
+			<BsFillPersonFill style={{ width: "80px", height: "50px" }} />
 			<Media.Body>
-				<h5>{user && user.fullName}</h5>
+				<h6>{user && user.fullName}</h6>
 				<p>{(user && user.lastMessage) || "test message"}</p>
 			</Media.Body>
 			<BsFillChatFill

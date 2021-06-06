@@ -19,7 +19,7 @@ const UserCard = ({ user }) => {
 		<Media as="li">
 			<BsFillPersonFill style={{ width: "80px", height: "60px" }} />
 			<Media.Body>
-				<h5>{user && user.fullName}</h5>
+				<h6>{user && user.fullName}</h6>
 			</Media.Body>
 			<Button
 				variant={requestSent ? "success" : "primary"}

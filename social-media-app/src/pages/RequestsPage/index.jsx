@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useContext } from "react";
 import UserCard from "./UserCard";
 import RequestsContainer from "./RequestsContainer";
+import Layout from "../../components/Layout";
 
 import { Container } from "react-bootstrap";
 
@@ -45,25 +46,31 @@ const UsersPage = () => {
 	console.log("users ====> ", users);
 
 	return (
-		<Container
-			style={{ minHeight: "100vh", maxWidth: "500px", marginTop: "90px" }}
-		>
-			<RequestsContainer />
-			<h5>Suggested Friends</h5>
-			{isloading ? (
-				"Loading ..."
-			) : users.length > 0 ? (
-				<ul className="list-unstyled">
-					{users
-						.filter((user) => user && user.fullName)
-						.map((user) => (
-							<UserCard key={user.userId} user={user} />
-						))}
-				</ul>
-			) : (
-				<p>No results found</p>
-			)}
-		</Container>
+		<Layout>
+			<Container
+				style={{
+					minHeight: "100vh",
+					maxWidth: "500px",
+					marginTop: "90px",
+				}}
+			>
+				<RequestsContainer />
+				<h6>Suggested Friends</h6>
+				{isloading ? (
+					"Loading ..."
+				) : users.length > 0 ? (
+					<ul className="list-unstyled">
+						{users
+							.filter((user) => user && user.fullName)
+							.map((user) => (
+								<UserCard key={user.userId} user={user} />
+							))}
+					</ul>
+				) : (
+					<p>No results found</p>
+				)}
+			</Container>
+		</Layout>
 	);
 };
 
