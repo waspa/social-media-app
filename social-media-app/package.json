@@ -9,6 +9,7 @@
     "bootstrap": "^4.6.0",
     "date-fns": "^2.19.0",
     "firebase": "^8.3.0",
+    "moment": "^2.29.1",
     "react": "^17.0.1",
     "react-bootstrap": "^1.5.2",
     "react-bootstrap-typeahead": "^5.1.4",
