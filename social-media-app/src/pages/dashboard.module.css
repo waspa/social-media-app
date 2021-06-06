@@ -8,3 +8,12 @@
 .form{
     display: block;
 }
+
+.formInput{
+    display: contents !important;  
+}
+
+.formInput input.rbt-input-main{
+    margin-top: 200px !important;;
+    width: 100% !important;
+}
